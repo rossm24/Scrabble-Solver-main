@@ -147,8 +147,8 @@ class ScrabbleBoard:
         board_word = word.replace("%", "")
 
         # don't add words that are already on the board
-        if board_word in self.words_on_board:
-            return board_word, 0
+        #if board_word in self.words_on_board:
+            #return board_word, 0
 
         # remove letters before wildcard indicators
         word = re.sub("[A-Z]%", "%", word)
