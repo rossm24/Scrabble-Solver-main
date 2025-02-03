@@ -176,10 +176,16 @@ class ScrabbleBoard:
 
         score *= score_multiplier
 
+        # remove any score coming from a wildcard letter 
+        for letter in word:
+            if letter == "%":
+                score -= self.point_dict.get(letter, 0)
+
         # check for bingo
         if len(rack_tiles) == 7:
             score += 50
 
+        # update best score 
         if score > self.highest_score:
             self.best_word = board_word
             self.highest_score = score
