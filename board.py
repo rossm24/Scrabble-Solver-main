@@ -147,8 +147,8 @@ class ScrabbleBoard:
         board_word = word.replace("%", "")
 
         # don't add words that are already on the board
-        if board_word in self.words_on_board:
-            return board_word, 0
+        #if board_word in self.words_on_board:
+            #return board_word, 0
 
         # remove letters before wildcard indicators
         word = re.sub("[A-Z]%", "%", word)
@@ -176,10 +176,16 @@ class ScrabbleBoard:
 
         score *= score_multiplier
 
+        # remove any score coming from a wildcard letter 
+        for letter in word:
+            if letter == "%":
+                score -= self.point_dict.get(letter, 0)
+
         # check for bingo
         if len(rack_tiles) == 7:
             score += 50
 
+        # update best score 
         if score > self.highest_score:
             self.best_word = board_word
             self.highest_score = score
