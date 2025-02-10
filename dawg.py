@@ -153,13 +153,13 @@ def find_in_dawg(word, curr_node):
 
 
 if __name__ == "__main__":
-    #big_list = open("lexicon/scrabble_words_complete.txt", "r").readlines()
-    big_list = open("lexicon/grade5.txt", "r").readlines()
+    big_list = open("lexicon/scrabble_words_complete.txt", "r").readlines()
+    #big_list = open("lexicon/grade5.txt", "r").readlines()
     big_list = [word.strip("\n") for word in big_list]
     build_trie(big_list)
     root = build_dawg(big_list)
-    #file_handler = open("lexicon/scrabble_words_complete.pickle", "wb")
-    file_handler = open("lexicon/grade5.pickle", "wb")
+    file_handler = open("lexicon/scrabble_words_complete.pickle", "wb")
+    #file_handler = open("lexicon/grade5.pickle", "wb")
     pickle.dump(root, file_handler)
     file_handler.close()
 
