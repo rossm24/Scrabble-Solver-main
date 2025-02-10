@@ -10,7 +10,6 @@ class Square:
 
 
 def score_word(word):
-    # this just calculates the score for a given word
     score = 0
     point_dict = {"A": 1, "B": 3, "C": 3, "D": 2,
                   "E": 1, "F": 4, "G": 2, "H": 4,

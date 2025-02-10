@@ -3,8 +3,6 @@ import re
 import random
 import copy
 
-from player import Player
-
 
 class Square:
     # default behavior is blank square, no score modifier, all cross-checks valid
@@ -112,12 +110,12 @@ class ScrabbleBoard:
 
         # variables to encode best word on a given turn
         self.dawg_root = dawg_root
-        #self.word_rack = []
+        self.word_rack = []
         self.word_score_dict = {}
         self.best_word = ""
         self.highest_score = 0
         self.dist_from_anchor = 0
-        #self.letters_from_rack = []
+        self.letters_from_rack = []
 
         # rows and columns of highest-scoring word found so far.
         # these are the rows and columns of the tile already on the board
@@ -149,8 +147,8 @@ class ScrabbleBoard:
         board_word = word.replace("%", "")
 
         # don't add words that are already on the board
-        #if board_word in self.words_on_board:
-            #return board_word, 0
+        if board_word in self.words_on_board:
+            return board_word, 0
 
         # remove letters before wildcard indicators
         word = re.sub("[A-Z]%", "%", word)
@@ -178,16 +176,10 @@ class ScrabbleBoard:
 
         score *= score_multiplier
 
-        # remove any score coming from a wildcard letter 
-        for letter in word:
-            if letter == "%":
-                score -= self.point_dict.get(letter, 0)
-
         # check for bingo
         if len(rack_tiles) == 7:
             score += 50
 
-        # update best score 
         if score > self.highest_score:
             self.best_word = board_word
             self.highest_score = score
@@ -439,9 +431,9 @@ class ScrabbleBoard:
         self.board[square_row][square_col - 1].letter = None
 
     # scan all tiles on board in both transposed and non-transposed state, find best move
-    def get_best_move(self, player: Player):
+    def get_best_move(self, word_rack):
 
-        tiles_to_use = player.letters_in_rack
+        self.word_rack = word_rack
 
         # clear out cross-check lists before adding new words
         self._update_cross_checks()
@@ -458,7 +450,7 @@ class ScrabbleBoard:
                 curr_square = self.board[row][col]
                 if curr_square.letter and (not self.board[row][col - 1].letter):
                     prev_best_score = self.highest_score
-                    self.get_all_words(row + 1, col + 1, tiles_to_use)
+                    self.get_all_words(row + 1, col + 1, word_rack)
                     if self.highest_score > prev_best_score:
                         self.best_row = row
                         self.best_col = col
@@ -469,7 +461,7 @@ class ScrabbleBoard:
                 curr_square = self.board[row][col]
                 if curr_square.letter and (not self.board[row][col - 1].letter):
                     prev_best_score = self.highest_score
-                    self.get_all_words(row + 1, col + 1, tiles_to_use)
+                    self.get_all_words(row + 1, col + 1, word_rack)
                     if self.highest_score > prev_best_score:
                         transposed = True
                         self.best_row = row
@@ -478,7 +470,7 @@ class ScrabbleBoard:
         # Don't try to insert word if we couldn't find one
         if not self.best_word:
             self._transpose()
-            return tiles_to_use
+            return word_rack
 
         if transposed:
             self.insert_word(self.best_row + 1, self.best_col + 1 - self.dist_from_anchor, self.best_word)
@@ -490,10 +482,10 @@ class ScrabbleBoard:
         self.word_score_dict[self.best_word] = self.highest_score
 
         for letter in self.letters_from_rack:
-            if letter in tiles_to_use:
-                tiles_to_use.remove(letter)
+            if letter in word_rack:
+                word_rack.remove(letter)
 
-        return tiles_to_use
+        return word_rack
 
     def get_start_move(self, word_rack):
         # board symmetrical at start so just always play the start move horizontally
@@ -518,7 +510,7 @@ class ScrabbleBoard:
 
         return word_rack
 
-# use this to determine player turn (i.e. when total words increases by 1)
+
 # returns a list of all words played on the board
 def all_board_words(board):
     board_words = []
@@ -549,7 +541,7 @@ def all_board_words(board):
 
     return board_words
 
-# can just call player.add_tiles_to_rack based on dispenser output
+
 def refill_word_rack(rack, tile_bag):
     to_add = min([7 - len(rack), len(tile_bag)])
     new_letters = random.sample(tile_bag, to_add)

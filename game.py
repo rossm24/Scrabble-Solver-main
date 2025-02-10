@@ -41,12 +41,12 @@ def all_board_words(board):
 
     return board_words
 
-# Should be a dispenser function
-# def refill_word_rack(rack, tile_bag):
-#     to_add = min([7 - len(rack), len(tile_bag)])
-#     new_letters = random.sample(tile_bag, to_add)
-#     rack = rack + new_letters
-#     return rack, new_letters
+
+def refill_word_rack(rack, tile_bag):
+    to_add = min([7 - len(rack), len(tile_bag)])
+    new_letters = random.sample(tile_bag, to_add)
+    rack = rack + new_letters
+    return rack, new_letters
 
 def is_rack_empty(player):
     return len(player_racks[player]) == 0
@@ -135,19 +135,19 @@ def draw_board(board):
                                                            
 
 
-# def draw_start_screen():
-#     screen.fill((255, 255, 255))
-#     intro_text = tile_font.render(f"Scrabble Solver Demonstration", True, (0, 0, 0))
-#     intro_rect = intro_text.get_rect(center=(screen_width // 2, screen_height // 4))
-#     screen.blit(intro_text, intro_rect)
-#
-#     info_text = tile_font.render(f"Press Space to Generate New Game Once Game is Finished", True, (0, 0, 0))
-#     info_rect = info_text.get_rect(center=(screen_width // 2, screen_height // 4 + 100))
-#     screen.blit(info_text, info_rect)
-#
-#     space_text = tile_font.render("Press Space to Start", True, (0, 0, 0))
-#     space_rect = space_text.get_rect(center=(screen_width // 2, screen_height // 2))
-#     screen.blit(space_text, space_rect)
+def draw_start_screen():
+    screen.fill((255, 255, 255))
+    intro_text = tile_font.render(f"Scrabble Solver Demonstration", True, (0, 0, 0))
+    intro_rect = intro_text.get_rect(center=(screen_width // 2, screen_height // 4))
+    screen.blit(intro_text, intro_rect)
+
+    info_text = tile_font.render(f"Press Space to Generate New Game Once Game is Finished", True, (0, 0, 0))
+    info_rect = info_text.get_rect(center=(screen_width // 2, screen_height // 4 + 100))
+    screen.blit(info_text, info_rect)
+
+    space_text = tile_font.render("Press Space to Start", True, (0, 0, 0))
+    space_rect = space_text.get_rect(center=(screen_width // 2, screen_height // 2))
+    screen.blit(space_text, space_rect)
 
 def draw_rack():
     rack = player_racks[current_player]  # Show current player's rack
@@ -290,6 +290,7 @@ if __name__ == "__main__":
     #to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
     to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
     root = pickle.load(to_load)
+    #print(f"✅ Root-level letters in DAWG: {list(root.children.keys())}")
     to_load.close()
     #tile_rack = random.sample(tile_bag, 7)
     #[tile_bag.remove(letter) for letter in tile_rack]
