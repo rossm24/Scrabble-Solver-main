@@ -1,6 +1,7 @@
 
 class Player:
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.score = 0  # Initial score is 0
         self.letters_in_rack = []  # Initially, the rack is empty
 
@@ -23,3 +24,5 @@ class Player:
         """
         self.score += points
 
+    def set_tile_rack(self, letters):
+        self.letters_in_rack = letters

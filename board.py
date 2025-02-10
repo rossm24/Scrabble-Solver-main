@@ -345,6 +345,7 @@ class ScrabbleBoard:
             print()
         print()
 
+
     # method to insert words into board by row and column number
     # using 1-based indexing for user input
     def insert_word(self, row, col, word):
@@ -409,6 +410,7 @@ class ScrabbleBoard:
         self._update_cross_checks()
 
         self.words_on_board.append(word)
+
 
     # gets all words that can be made using a selected filled square and the current word rack
     def get_all_words(self, square_row, square_col, rack):
@@ -562,8 +564,8 @@ def play_game():
                ["O"] * 8 + ["P"] * 2 + ["Q"] * 1 + ["R"] * 6 + ["S"] * 4 + ["T"] * 6 + ["U"] * 4 + \
                ["V"] * 2 + ["W"] * 2 + ["X"] * 1 + ["Y"] * 2 + ["Z"] * 1 + ["%"] * 2
 
-    #to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
-    to_load = open("lexicon/grade5.pickle", "rb")
+    to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
+    #to_load = open("lexicon/grade5.pickle", "rb")
     root = pickle.load(to_load)
     to_load.close()
     word_rack = random.sample(tile_bag, 7)

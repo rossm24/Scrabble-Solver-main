@@ -18,7 +18,7 @@ def score_word(word):
                   "M": 3, "N": 1, "O": 1, "P": 3,
                   "Q": 10, "R": 1, "S": 1, "T": 1,
                   "U": 1, "V": 4, "W": 4, "X": 8,
-                  "Y": 8, "Z": 10}
+                  "Y": 4, "Z": 10}
 
     for letter in word:
         score += point_dict[letter]
@@ -72,8 +72,8 @@ def get_all_words(start_node, square, rack, word):
 
 
 if __name__ == "__main__":
-    #to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
-    to_load = open("lexicon/grade5.pickle", "rb")
+    to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
+    #to_load = open("lexicon/grade5.pickle", "rb")
     root = pickle.load(to_load)
     to_load.close()
 
