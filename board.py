@@ -128,7 +128,7 @@ class ScrabbleBoard:
 
     # transpose method that modifies self.board inplace
     def _transpose(self):
-        # https://datagy.io/python-transpose-list-of-lists/
+        # https://datagy.io/python-transpose-list-of-listgs/
         transposed_tuples = copy.deepcopy(list(zip(*self.board)))
         self.board = [list(sublist) for sublist in transposed_tuples]
         self.is_transpose = not self.is_transpose
@@ -556,8 +556,8 @@ def play_game():
                ["O"] * 8 + ["P"] * 2 + ["Q"] * 1 + ["R"] * 6 + ["S"] * 4 + ["T"] * 6 + ["U"] * 4 + \
                ["V"] * 2 + ["W"] * 2 + ["X"] * 1 + ["Y"] * 2 + ["Z"] * 1 + ["%"] * 2
 
-    to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
-    #to_load = open("lexicon/grade5.pickle", "rb")
+    #to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
+    to_load = open("lexicon/grade5.pickle", "rb")
     root = pickle.load(to_load)
     to_load.close()
     word_rack = random.sample(tile_bag, 7)

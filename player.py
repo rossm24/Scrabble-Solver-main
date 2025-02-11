@@ -26,3 +26,14 @@ class Player:
 
     def set_tile_rack(self, letters):
         self.letters_in_rack = letters
+
+'''
+We found an exisiting Scrabble algorithm that would run through a full game of Scrabble as a single player,
+playing the best possible word from a complete Scrabble dictionary, at each turn.
+
+We have taken this and made necessary adaptations so that it better fits out goals. This includes mainly implementing a player
+system to accomodate two players turns and also changing the dictionary so that it is more kid friendly, 
+playing words that they would know and understand. 
+
+[show algorithm] [show player 1 button 1 player 2 button 2]
+'''

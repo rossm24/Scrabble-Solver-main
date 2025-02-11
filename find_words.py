@@ -10,6 +10,7 @@ class Square:
 
 
 def score_word(word):
+    #doesnt consider special squares
     score = 0
     point_dict = {"A": 1, "B": 3, "C": 3, "D": 2,
                   "E": 1, "F": 4, "G": 2, "H": 4,
@@ -71,8 +72,8 @@ def get_all_words(start_node, square, rack, word):
 
 
 if __name__ == "__main__":
-    to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
-    #to_load = open("lexicon/grade5.pickle", "rb")
+    #to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
+    to_load = open("lexicon/grade5.pickle", "rb")
     root = pickle.load(to_load)
     to_load.close()
 

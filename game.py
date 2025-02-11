@@ -239,8 +239,8 @@ def draw_computer_score(word_score_dict):
     y_offset = y_start + 90
     screen.blit(score_font.render("P1 Words:", True, (0, 0, 0)), (x_start + 20, y_offset))
     y_offset += 25
-    for word in player_racks[1]:
-        screen.blit(score_font.render(word, True, (0, 0, 0)), (x_start + 20, y_offset))
+    for word in player_words[1]:
+        screen.blit(score_font.render(word, True, (0, 0, 0)), (x_start + 30, y_offset))
         y_offset += 20
 
     # Display Player 2 Score
@@ -251,8 +251,8 @@ def draw_computer_score(word_score_dict):
     y_offset = y_start + 90
     screen.blit(score_font.render("P2 Words:", True, (0, 0, 0)), (x_start + 20 + column_spacing, y_offset))
     y_offset += 25
-    for word in player_racks[2]:
-        screen.blit(score_font.render(word, True, (0, 0, 0)), (x_start + 20 + column_spacing, y_offset))
+    for word in player_words[2]:
+        screen.blit(score_font.render(word, True, (0, 0, 0)), (x_start + 30 + column_spacing, y_offset))
         y_offset += 20
 
 
@@ -288,7 +288,7 @@ if __name__ == "__main__":
                ["V"] * 2 + ["W"] * 2 + ["X"] * 1 + ["Y"] * 2 + ["Z"] * 1 + ["%"] * 2
 
     #to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
-    to_load = open("lexicon/scrabble_words_complete.pickle", "rb")
+    to_load = open("lexicon/grade5.pickle", "rb")
     root = pickle.load(to_load)
     #print(f"✅ Root-level letters in DAWG: {list(root.children.keys())}")
     to_load.close()
@@ -377,6 +377,7 @@ if __name__ == "__main__":
                         # Log the move
                         if placed_word:
                             print(f"✅ Player 1 placed: {placed_word}")
+                            player_words[1].append(placed_word)
                         else:
                             print("❌ Player 1 couldn't find a valid word.") 
 
@@ -409,6 +410,7 @@ if __name__ == "__main__":
                         # Log the move
                         if placed_word:
                             print(f"✅ Player 2 placed: {placed_word}")
+                            player_words[2].append(placed_word)
                         else:
                             print("❌ Player 2 couldn't find a valid word.")
 
@@ -477,20 +479,24 @@ if __name__ == "__main__":
             player2_rect = player2_text.get_rect(center=(screen_width // 2, screen_height // 2 + 100))
             screen.blit(player2_text, player2_rect)
 
-            continue
+            pygame.display.update()
 
-        if game_state == "end_screen":
+            #continue
+
+        elif game_state == "game_screen":
+            screen.fill((0, 0, 0))  # Clear screen for game
             draw_board(game.board)
             draw_rack()
             draw_computer_score(game.word_score_dict)
-            continue
 
+        '''
         # Draw Board and UI
         draw_board(game.board)
         draw_rack()
         draw_computer_score(game.word_score_dict)
 
         pygame.time.wait(75)
+        '''
 
 
     '''
