@@ -29,11 +29,14 @@ class Player:
 
 '''
 We found an exisiting Scrabble algorithm that would run through a full game of Scrabble as a single player,
-playing the best possible word from a complete Scrabble dictionary, at each turn.
+playing the best possible word from a professional Scrabble dictionary. A key feature we 
+identified in this was a Directed Acyclic Word Graph data structure for word efficient word lookup
 
-We have taken this and made necessary adaptations so that it better fits out goals. This includes mainly implementing a player
-system to accomodate two players turns and also changing the dictionary so that it is more kid friendly, 
+We have taken this and made some adaptations so that it better fits our needs. This primarily included implementing a player
+system which currently accomodate two players to take turns, and also changing the dictionary so that it is more kid friendly, 
 playing words that they would know and understand. 
+
+As you can see the words are identified and then will be highlighted within the tile rack.
 
 [show algorithm] [show player 1 button 1 player 2 button 2]
 '''
