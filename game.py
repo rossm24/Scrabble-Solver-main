@@ -239,7 +239,7 @@ def draw_computer_score(word_score_dict):
     y_offset = y_start + 90
     screen.blit(score_font.render("P1 Words:", True, (0, 0, 0)), (x_start + 20, y_offset))
     y_offset += 25
-    for word in player_words[1]:
+    for word in player_racks[1]:
         screen.blit(score_font.render(word, True, (0, 0, 0)), (x_start + 30, y_offset))
         y_offset += 20
 
@@ -251,7 +251,7 @@ def draw_computer_score(word_score_dict):
     y_offset = y_start + 90
     screen.blit(score_font.render("P2 Words:", True, (0, 0, 0)), (x_start + 20 + column_spacing, y_offset))
     y_offset += 25
-    for word in player_words[2]:
+    for word in player_racks[2]:
         screen.blit(score_font.render(word, True, (0, 0, 0)), (x_start + 30 + column_spacing, y_offset))
         y_offset += 20
 
@@ -365,18 +365,19 @@ if __name__ == "__main__":
                         # Player 1 plays from their own rack
                         #player_racks[1] = game.get_best_move(player_racks[1])
                         if first_move:
-                            print("🔵 Player 1 (First Move): Attempting to place a word...")
+                            #print("🔵 Player 1 (First Move): Attempting to place a word...")
                             player_racks[1] = game.get_start_move(player_racks[1])
                             placed_word = game.best_word
                             first_move = False
                         else:
-                            print("🔵 Player 1: Attempting to play a move...")
+                            #print("🔵 Player 1: Attempting to play a move...")
                             player_racks[1] = game.get_best_move(player_racks[1])
+                            #print(f"Player 1 placed '{game.best_word}' at {word_coords}")
                             placed_word = game.best_word
 
                         # Log the move
                         if placed_word:
-                            print(f"✅ Player 1 placed: {placed_word}")
+                            #print(f"✅ Player 1 placed: {placed_word}")
                             player_words[1].append(placed_word)
                         else:
                             print("❌ Player 1 couldn't find a valid word.") 
@@ -384,10 +385,10 @@ if __name__ == "__main__":
                         # Update score log
                         previous_score = player_scores[1]
                         player_scores[1] += game.word_score_dict.get(game.best_word, 0)
-                        print(f"🏆 Player 1 Score: {previous_score} ➝ {player_scores[1]}")
+                        #print(f"🏆 Player 1 Score: {previous_score} ➝ {player_scores[1]}")
 
                         # Log the updated tile rack
-                        print(f"🎭 Player 1 New Rack: {player_racks[1]}")
+                        #print(f"🎭 Player 1 New Rack: {player_racks[1]}")
 
                         # Refill Player 1's rack
                         player_racks[1], new_letters = refill_word_rack(player_racks[1], tile_bag)
@@ -403,13 +404,14 @@ if __name__ == "__main__":
                         turn_in_progress = True
 
                         # Player 2 plays from their own rack
-                        print("🔴 Player 2: Attempting to play a move...")
-                        player_racks[2] = game.get_best_move(player_racks[2])
+                        #print("🔴 Player 2: Attempting to play a move...")
+                        player_racks[2], word_coords = game.get_best_move(player_racks[2])
+                        #print(f"Player 2 placed '{game.best_word}' at {word_coords}")
                         placed_word = game.best_word
 
                         # Log the move
                         if placed_word:
-                            print(f"✅ Player 2 placed: {placed_word}")
+                            #print(f"✅ Player 2 placed: {placed_word}")
                             player_words[2].append(placed_word)
                         else:
                             print("❌ Player 2 couldn't find a valid word.")
@@ -417,10 +419,10 @@ if __name__ == "__main__":
                         # Update score log
                         previous_score = player_scores[2]
                         player_scores[2] += game.word_score_dict.get(game.best_word, 0)
-                        print(f"🏆 Player 2 Score: {previous_score} ➝ {player_scores[2]}")
+                        #print(f"🏆 Player 2 Score: {previous_score} ➝ {player_scores[2]}")
 
                         # Log the updated tile rack
-                        print(f"🎭 Player 2 New Rack: {player_racks[2]}")
+                        #print(f"🎭 Player 2 New Rack: {player_racks[2]}")
 
                         # Refill Player 2's rack
                         player_racks[2], new_letters = refill_word_rack(player_racks[2], tile_bag)

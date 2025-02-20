@@ -117,6 +117,8 @@ class ScrabbleBoard:
         self.dist_from_anchor = 0
         self.letters_from_rack = []
 
+        self.best_word_coords = []
+
         # rows and columns of highest-scoring word found so far.
         # these are the rows and columns of the tile already on the board
         self.best_row = 0
@@ -371,12 +373,17 @@ class ScrabbleBoard:
                         curr_col -= 1
                         self.board[row][curr_col].letter = None
                         self.board[row][curr_col].modifier = modifiers.pop()
+
+                    self.best_word_coords = []
                     return
             else:
                 self.board[row][curr_col].letter = letter
 
                 # reset any modifiers to 0 once they have a tile placed on top of them
                 self.board[row][curr_col].modifier = ""
+
+                # store the coordinates
+                self.best_word_coords.append((row, curr_col))
 
                 # once letter is inserted, add squares above and below it to cross_check_queue
                 if row > 0:
@@ -402,6 +409,8 @@ class ScrabbleBoard:
         self._update_cross_checks()
 
         self.words_on_board.append(word)
+
+        print(f"Played '{word}' at {self.best_word_coords}" )
 
 
     # gets all words that can be made using a selected filled square and the current word rack
@@ -443,6 +452,7 @@ class ScrabbleBoard:
         self.highest_score = 0
         self.best_row = 0
         self.best_col = 0
+        self.best_word_coords = []
 
         transposed = False
         for row in range(0, 15):
@@ -485,7 +495,9 @@ class ScrabbleBoard:
             if letter in word_rack:
                 word_rack.remove(letter)
 
-        return word_rack
+        best_word_coords = self.best_word_coords
+
+        return word_rack, best_word_coords
 
     def get_start_move(self, word_rack):
         # board symmetrical at start so just always play the start move horizontally
