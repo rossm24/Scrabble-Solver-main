@@ -371,7 +371,7 @@ if __name__ == "__main__":
                             first_move = False
                         else:
                             #print("🔵 Player 1: Attempting to play a move...")
-                            player_racks[1] = game.get_best_move(player_racks[1])
+                            player_racks[1], word_coords = game.get_best_move(player_racks[1])
                             #print(f"Player 1 placed '{game.best_word}' at {word_coords}")
                             placed_word = game.best_word
 
